@@ -58,6 +58,25 @@ async function run() {
                   res.send(result);
             });
 
+            app.put('/book/:id', async (req, res) => {
+                  const id = req.params.id;
+                  const filter = { _id: new ObjectId(id) };
+                  const options = { upsert: true };
+                  const updatedBook = req.body;
+                  const Book = {
+                        $set: {
+                              image: updatedBook.image,
+                              name: updatedBook.name,
+                              author: updatedBook.author,
+                              category: updatedBook.category,
+                              rating: updatedBook.rating,
+                        }
+                  };
+
+                  const result = await booksCollection.updateOne(filter, book, options);
+                  res.send(result);
+            });
+
 
 
 
