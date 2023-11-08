@@ -42,7 +42,7 @@ async function run() {
                   res.send(result);
             });
 
-            app.get('book/:id', async (req, res) => {
+            app.get('/book/:id', async (req, res) => {
                   const id = req.params.id;
                   const query = { _id: new ObjectId(id) };
                   const result = await booksCollection.findOne(query);
@@ -63,13 +63,15 @@ async function run() {
                   const filter = { _id: new ObjectId(id) };
                   const options = { upsert: true };
                   const updatedBook = req.body;
-                  const Book = {
+                  const book = {
                         $set: {
                               image: updatedBook.image,
                               name: updatedBook.name,
                               author: updatedBook.author,
                               category: updatedBook.category,
                               rating: updatedBook.rating,
+                              quantity: updatedBook.quantity,
+                              description: updatedBook.description
                         }
                   };
 
